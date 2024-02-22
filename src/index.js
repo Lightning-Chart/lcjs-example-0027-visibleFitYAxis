@@ -27,7 +27,7 @@ const dataPointsHistory = 500
 const axisX = chart
     .getDefaultAxisX()
     .setScrollStrategy(AxisScrollStrategies.progressive)
-    .setInterval({ start: 0, end: dataPointsHistory, stopAxisAfter: false })
+    .setDefaultInterval((state) => ({ end: state.dataMax, start: (state.dataMax ?? 0) - dataPointsHistory, stopAxisAfter: false }))
     .setMouseInteractions(false)
 
 const axisY = chart.getDefaultAxisY().setMouseInteractions(false)
