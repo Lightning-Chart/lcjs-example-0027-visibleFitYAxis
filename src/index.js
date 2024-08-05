@@ -1,11 +1,18 @@
 /**
  * Example how Y axis fitting to visible data can be achieved in scrolling line chart applications
+ *
+ * @@@@@@@@@@@@@@@@@
+ *
+ *  This example is completely redundant since LCJS v5.1.0.
+ *  The visible fitting feature is since then built in.
+ *
+ * @@@@@@@@@@@@@@@@@
  */
 // Import LightningChartJS
-const lcjs = require('@arction/lcjs')
+const lcjs = require('@lightningchart/lcjs')
 
 // Import xydata
-const xydata = require('@arction/xydata')
+const xydata = require('@lightningchart/xydata')
 const { lightningChart, AxisScrollStrategies, Themes } = lcjs
 const { createProgressiveTraceGenerator } = xydata
 
