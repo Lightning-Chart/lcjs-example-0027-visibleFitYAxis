@@ -23,12 +23,9 @@ const chart = lightningChart({
         theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     })
     .setTitle('Axis Y Fitting to visible data')
-    .setMouseInteractions(false)
 
-const lineSeries = chart.addLineSeries({
-    dataPattern: {
-        pattern: 'ProgressiveX',
-    },
+const lineSeries = chart.addPointLineAreaSeries({
+    dataPattern: 'ProgressiveX',
 })
 
 // Setup scrolling X Axis.
@@ -37,9 +34,8 @@ const axisX = chart
     .getDefaultAxisX()
     .setScrollStrategy(AxisScrollStrategies.progressive)
     .setDefaultInterval((state) => ({ end: state.dataMax, start: (state.dataMax ?? 0) - dataPointsHistory, stopAxisAfter: false }))
-    .setMouseInteractions(false)
 
-const axisY = chart.getDefaultAxisY().setMouseInteractions(false)
+const axisY = chart.getDefaultAxisY()
 
 // Keep track of n last data points (visible data points).
 const lastYValues = []
@@ -56,7 +52,7 @@ createProgressiveTraceGenerator()
     .toStream()
     .forEach((point) => {
         // Add point to line series.
-        lineSeries.add(point)
+        lineSeries.appendSample(point)
 
         // Keep track of n last data points (visible last points)
         if (lastYValues.length >= dataPointsHistory) {
