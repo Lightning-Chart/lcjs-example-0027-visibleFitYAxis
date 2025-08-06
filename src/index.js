@@ -20,19 +20,18 @@ const chart = lightningChart({
             resourcesBaseUrl: new URL(document.head.baseURI).origin + new URL(document.head.baseURI).pathname + 'resources/',
         })
     .ChartXY({
+        legend: { visible: false },
         theme: Themes[new URLSearchParams(window.location.search).get('theme') || 'darkGold'] || undefined,
     })
     .setTitle('Axis Y Fitting to visible data')
 
-const lineSeries = chart.addPointLineAreaSeries({
-    dataPattern: 'ProgressiveX',
-})
+const lineSeries = chart.addLineSeries({})
 
 // Setup scrolling X Axis.
 const dataPointsHistory = 500
 const axisX = chart
     .getDefaultAxisX()
-    .setScrollStrategy(AxisScrollStrategies.progressive)
+    .setScrollStrategy(AxisScrollStrategies.scrolling)
     .setDefaultInterval((state) => ({ end: state.dataMax, start: (state.dataMax ?? 0) - dataPointsHistory, stopAxisAfter: false }))
 
 const axisY = chart.getDefaultAxisY()
